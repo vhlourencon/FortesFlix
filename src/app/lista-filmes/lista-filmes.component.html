@@ -1,0 +1,84 @@
+
+<div class="container mt-5">
+  <div class="card">
+   
+    <div class="card-body">
+      <h5 class="card-title">Encontre seu filme e alugue por quantos dias desejar</h5>
+      <div class="row g-2">
+        <div class="col-md">
+          <div class="form-floating">
+            <input [(ngModel)]="filtraPorNome" type="text" class="form-control" id="floatingInputGrid" placeholder="" value="">
+            <label for="floatingInputGrid">Nome</label>
+      
+          </div>
+        </div>
+        
+     
+        <div class="col-md">
+          <div class="form-floating">
+            <select class="form-select"  [(ngModel)]="filtraPorGenero" id="floatingSelectGrid" aria-label="Floating label select example">
+              <option [value]="item.id" *ngFor="let item of generos">{{item.name}}</option>
+            </select>
+            <label for="floatingSelectGrid">Genêro</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div class="card" style="margin-top: 20px;">
+    <div class="card-header">
+      Filmes Disponiveis na nossa unidade
+    </div>
+    <div class="card-body">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let filme of filteredFilmes">
+          <div class="card h-100" >
+          
+          <div   class="foto">
+            <img  [src]="filme.imagem" height="250" width="100%">
+            <div *ngIf="filme.alugado" class="text-block-foto">
+              <h4>Alugado</h4>
+            </div>
+          </div>
+            <div class="card-body">
+              <h5 class="card-title">{{filme.nome}}</h5>
+              <p class="card-text">{{ filme.descricao}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                
+                  <ng-template #content let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">Confirma o Aluguel do filme?</h4>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="dateOfBirth">Data de Devolução</label>
+                          <div class="input-group">
+                            <input id="dateOfBirth" [(ngModel)]="modelData"class="form-control"   name="dp" ngbDatepicker #dp="ngbDatepicker">
+                            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-success" (click)="modal.close('Save click')">Confirma</button>
+                    </div>
+                  </ng-template>
+                  <button  [disabled]="filme.alugado"  class="btn btn-lg btn-primary" (click)="open(content,filme)">Alugar</button>
+                </div>
+                <small class=" text-muted">{{ filme.categoria }}</small>
+                <ngb-rating [(rate)]="filme.avaliacao" [max]="5" [readonly]="true"></ngb-rating>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent ">Duração: {{ filme.duracao }} mins </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
