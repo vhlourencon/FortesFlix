@@ -1,5 +1,10 @@
-<h2>Cadastro de Filmes</h2>
-<hr>
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a [routerLink]="['/filmes']"  class="navbar-brand">Cadastro de Filmes</a>
+        <button   [routerLink]="['../info/',null]" class="btn btn-success" type="submit"> + Novo Filme</button>
+    </div>
+  </nav>
 
 <table class="table table-striped">
     <thead>
@@ -29,7 +34,7 @@
             <td>
                 <button  [routerLink]="['../info/',filme.id]" class="btn btn-primary mr-2">Editar</button>
                 <button  [disabled]="!filme.alugado" class="btn btn-success" (click)="devolver(filme)" style="margin-left:  10px;">Devolver</button>
-                <button  class="btn btn-danger" style="margin-left:  10px;">Delete</button>
+                <button  class="btn btn-danger" style="margin-left:  10px;" (click)="deletar(filme)">Delete</button>
             </td>
         </tr>
     </tbody>

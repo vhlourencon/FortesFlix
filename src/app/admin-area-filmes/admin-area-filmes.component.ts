@@ -31,6 +31,15 @@ export class AdminAreaFilmesComponent implements OnInit {
   }
 
 
+  deletar(filme : Filme): void {
+    this.filmeService.deleteById(filme.id).subscribe({
+        next: filmeCallBack =>{ console.log('Deleted with success', filmeCallBack)
+           this.retrieveAll();
+      },
+        error: err => console.log('Error', err)
+      }) 
+    }
+
 
   ngOnInit(): void {
     this.retrieveAll();
